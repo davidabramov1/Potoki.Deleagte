@@ -22,8 +22,8 @@ namespace Potoki.Deleagte
         {
             listBox1.Items.Clear();
             listBox2.Items.Clear();
-            int s = Convert.ToInt32(textBox1.Text);
-            int r = Convert.ToInt32(textBox2.Text);
+            int do1 = Convert.ToInt32(textBox1.Text);
+            int do2 = Convert.ToInt32(textBox2.Text);
             Random random = new Random();
             //задержка
             int sleep1 = random.Next(90, 250);
@@ -34,22 +34,23 @@ namespace Potoki.Deleagte
             // запускаем поток myThread
             myThread.Start();
             myThread2.Start();
-            void Print1();
+
+            void Print1()
             {
-                for (int i = 0; i < s; i++)
+                for (int i = 0; i < do1; i++)
                 {
-                    listBox1.Items.Add($"Главный поток: {i}, Рандом: {sleep1}");
-                    listBox2.Invoke(new Action(() => listBox2.Items.Add($"Главный поток: {i}, Рандомное число: {sleep1}")));
+                    //listBox1.Items.Add($"Главный поток: {i}, Рандом: {sleep1}");
+                    listBox1.Invoke(new Action(() => listBox1.Items.Add($"Главный поток: {i}, Рандомное число: {sleep1}"))); ;
                     Thread.Sleep(sleep1);
-                                  }
+                }
             }
            
-            void Print2();
+            void Print2()
             {
                 // действия, выполняемые в главном потоке
-                for (int i = 0; i < s; i++)
+                for (int i = 0; i < do2; i++)
                 {
-                    listBox2.Invoke(new Action(() => listBox2.Items.Add($"Главный поток: {i}, Рандомное число: {sleep2}"))); ;
+                    listBox2.Invoke(new Action(() => listBox2.Items.Add($"Второй поток: {i}, Рандомное число: {sleep2}"))); ;
                     Thread.Sleep(sleep2);
                 }
             }
